@@ -1,4 +1,4 @@
-package br.ifba.tarefa.backend.controller;
+package br.ifba.cooruja.backend.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.ifba.tarefa.backend.model.PerfilModel;
-import br.ifba.tarefa.backend.repository.PerfilRepository;
+import br.ifba.cooruja.backend.model.PerfilModel;
+import br.ifba.cooruja.backend.repository.PerfilRepository;
 
 @RestController
 @RequestMapping("/perfil")

@@ -1,5 +1,4 @@
-package br.ifba.tarefa.backend.model;
-
+package br.ifba.cooruja.backend.model;
 import java.sql.Date;
 
 import jakarta.persistence.Column;
@@ -18,7 +17,7 @@ public class UsuarioModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private long id;
+	private Long id;
 
 	@Column(name = "nome", nullable = false)
 	private String nome;
@@ -48,7 +47,7 @@ public class UsuarioModel {
 		super();
 	}
 
-	public UsuarioModel(long id, String nome, String sobrenome, String email, String senha, Boolean termos_aceite,
+	public UsuarioModel(Long id, String nome, String sobrenome, String email, String senha, Boolean termos_aceite,
 			String id_perfil, Date data_cadastro, Date data_modificacao) {
 		this.id = id;
 		this.nome = nome;
@@ -61,11 +60,11 @@ public class UsuarioModel {
 		this.data_modificacao = data_modificacao;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

@@ -1,4 +1,4 @@
-package br.ifba.tarefa.backend.model;
+package br.ifba.cooruja.backend.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

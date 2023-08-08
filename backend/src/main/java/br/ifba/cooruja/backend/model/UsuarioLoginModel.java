@@ -1,4 +1,4 @@
-package br.ifba.tarefa.backend.model;
+package br.ifba.cooruja.backend.model;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;

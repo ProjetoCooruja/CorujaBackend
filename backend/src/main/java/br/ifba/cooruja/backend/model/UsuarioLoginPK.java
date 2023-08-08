@@ -1,4 +1,4 @@
-package br.ifba.tarefa.backend.model;
+package br.ifba.cooruja.backend.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;

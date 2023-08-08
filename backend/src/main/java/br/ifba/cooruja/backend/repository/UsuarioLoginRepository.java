@@ -1,7 +1,8 @@
-package br.ifba.tarefa.backend.repository;
+package br.ifba.cooruja.backend.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import br.ifba.tarefa.backend.model.UsuarioLoginModel;
+
+import br.ifba.cooruja.backend.model.UsuarioLoginModel;
 
 
 public interface UsuarioLoginRepository extends JpaRepository<UsuarioLoginModel, Long>

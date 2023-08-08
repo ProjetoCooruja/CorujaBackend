@@ -1,7 +1,9 @@
-package br.ifba.tarefa.backend.repository;
+package br.ifba.cooruja.backend.repository;
+
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import br.ifba.tarefa.backend.model.PerfilModel;
+
+import br.ifba.cooruja.backend.model.PerfilModel;
 
 
 public interface PerfilRepository extends JpaRepository<PerfilModel, Long>

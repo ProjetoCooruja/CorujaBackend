@@ -1,4 +1,4 @@
-package br.ifba.tarefa.backend.controller;
+package br.ifba.cooruja.backend.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.ifba.tarefa.backend.model.UsuarioModel;
-import br.ifba.tarefa.backend.repository.UsuarioRepository;
+import br.ifba.cooruja.backend.dto.LoginRequest;
+import br.ifba.cooruja.backend.dto.MessageResponse;
+import br.ifba.cooruja.backend.model.UsuarioModel;
+import br.ifba.cooruja.backend.repository.UsuarioRepository;
 
 @RestController
 @RequestMapping("/usuario")
@@ -53,17 +55,25 @@ public class UsuarioController {
 	
 	@PostMapping("/")
 	@ResponseStatus( HttpStatus.CREATED )
-	public boolean insert(@RequestBody UsuarioModel model){
+	public ResponseEntity insert(@RequestBody UsuarioModel model){
 		System.out.println("server - insert: " + model);
+		Optional<UsuarioModel> uModel = repository.findByEmail(model.getEmail());
+		if ( uModel.isPresent() ) {
+			// return false;
+			return ResponseEntity.badRequest()
+                          .body("e-mail já cadastrado!");
+		}
 		try {
-			repository.save(model);
+			UsuarioModel usuModel = repository.save(model);
 			System.out.println("server - insert: TRUE");
-			return true;
+			return ResponseEntity.ok(usuModel);
 		}
 		catch (Exception e) {
 			System.out.println("server - insert: FALSE");
 			e.printStackTrace();
-			return false;
+			// return false;
+			return ResponseEntity.badRequest()
+                          .body("Não foi possivel cadastrar o Usuario");
 		}
 	}
 	
@@ -110,27 +120,33 @@ public class UsuarioController {
 	}
 	
 	@PostMapping(value = "/login")
-    public ResponseEntity loginUsuario(@RequestBody UsuarioModel usuarioRequest){
-      try {
-          Optional<UsuarioModel> usuario = repository.findByEmail(usuarioRequest.getEmail());
-          
-          if(usuario.isPresent()){
-              if(usuario.get().getSenha().equals( usuarioRequest.getSenha()) ) {
-            	  // zerando o valor da senha, para que seja retornado ao cliente o objeto sem o valor da senha
-            	  usuario.get().setSenha("");
-            	  return ResponseEntity.ok(usuario);
-              } else {
-            	  return ResponseEntity.badRequest()
-                          .body("Usuario ou Senha Incorreta!");
+    public ResponseEntity loginUsuario(@RequestBody LoginRequest loginRequest){
+		// if (isAuthenticated) {
+        //     return ResponseEntity.ok(new MessageResponse("Usuário autenticado com sucesso!"));
+        // } else {
+        //     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MessageResponse("Erro: Credenciais inválidas!"));
+        // }
+		try {
+        	Optional<UsuarioModel> usuario = repository.findByEmail(loginRequest.getUsername());         
+        	if(usuario.isPresent()){
+            	if(usuario.get().getSenha().equals( loginRequest.getPassword()) ) {
+            		// zerando o valor da senha, para que seja retornado ao cliente o objeto sem o valor da senha
+            	  	usuario.get().setSenha("");
+            	  	return ResponseEntity.ok(usuario);
+              	} else {
+            	//   return ResponseEntity.badRequest().body("Usuario ou Senha Incorreta!");
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MessageResponse("Erro: Credenciais inválidas!"));
               }
-
-          }else{
+          	}else{
 //              return ResponseEntity.notFound().headers(headers).build();
-        	  return ResponseEntity.notFound().build();
-          }
-
-      }catch (Exception e){
-          throw e;
+				// return ResponseEntity.badRequest().body("Usuario ou Senha Incorreta!");
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MessageResponse("Erro: Credenciais inválidas!"));
+          	}
+      }
+	  catch (Exception e){
+		System.out.println("3");
+		System.out.println(e);
+        throw e;
       }
 
 	}

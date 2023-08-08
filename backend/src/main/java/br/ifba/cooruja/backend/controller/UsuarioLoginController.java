@@ -1,4 +1,4 @@
-package br.ifba.tarefa.backend.controller;
+package br.ifba.cooruja.backend.controller;
 
 import java.util.Optional;
 
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.ifba.tarefa.backend.model.UsuarioLoginModel;
-import br.ifba.tarefa.backend.repository.UsuarioLoginRepository;
+import br.ifba.cooruja.backend.model.UsuarioLoginModel;
+import br.ifba.cooruja.backend.repository.UsuarioLoginRepository;
 
 @RestController
 @RequestMapping("/usuario_login")
