@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+// import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -64,6 +65,11 @@ public class UsuarioController {
                           .body("e-mail já cadastrado!");
 		}
 		try {
+			// Criptografando a senha do usuario
+			// BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			// String hashedPassword = passwordEncoder.encode(model.getSenha());
+			// model.setSenha(hashedPassword);
+
 			UsuarioModel usuModel = repository.save(model);
 			System.out.println("server - insert: TRUE");
 			return ResponseEntity.ok(usuModel);

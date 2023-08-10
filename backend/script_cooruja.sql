@@ -36,6 +36,16 @@ Create Table usuario_login (
 		foreign key (id_usuario) references usuario(id)
 );
 
+create table arquivo (
+	id_arquivo int not null,
+	id_usuario int not null,
+	tp_armazenamento int null DEFAULT 0, --0 - Local, 1 - AWS S3
+	nome_arquivo varchar(50) null,
+	path_arquivo varchar(200) null,
+	tamanho int null,
+	data_cadastro TIMESTAMP DEFAULT now(),
+	PRIMARY KEY (id_arquivo),
+);
 
 select * from perfil_acesso pa  u 
 
