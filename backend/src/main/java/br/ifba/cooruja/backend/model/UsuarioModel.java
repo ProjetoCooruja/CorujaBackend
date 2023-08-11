@@ -1,4 +1,5 @@
 package br.ifba.cooruja.backend.model;
+
 import java.sql.Date;
 
 import jakarta.persistence.Column;
@@ -17,7 +18,7 @@ public class UsuarioModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private Long id;
+	private long id;
 
 	@Column(name = "nome", nullable = false)
 	private String nome;
@@ -47,7 +48,7 @@ public class UsuarioModel {
 		super();
 	}
 
-	public UsuarioModel(Long id, String nome, String sobrenome, String email, String senha, Boolean termos_aceite,
+	public UsuarioModel(long id, String nome, String sobrenome, String email, String senha, Boolean termos_aceite,
 			String id_perfil, Date data_cadastro, Date data_modificacao) {
 		this.id = id;
 		this.nome = nome;
@@ -60,11 +61,11 @@ public class UsuarioModel {
 		this.data_modificacao = data_modificacao;
 	}
 
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
