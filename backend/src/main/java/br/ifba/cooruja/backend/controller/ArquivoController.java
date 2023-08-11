@@ -1,6 +1,16 @@
 package br.ifba.cooruja.backend.controller;
 
+import java.io.IOException;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -9,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import br.ifba.cooruja.backend.resource.Arquivo;
 import br.ifba.cooruja.backend.model.ArquivoModel;
+import br.ifba.cooruja.backend.model.PerfilModel;
 import br.ifba.cooruja.backend.repository.ArquivoRepository;
 
 @RestController
@@ -43,4 +54,41 @@ public class ArquivoController {
 			return false;
 		}
 	}
+
+	@GetMapping("/listall")
+	public List<ArquivoModel> listall() {
+		var model = repository.findAll();
+		return model;
+	}
+	
+	@GetMapping("/{id}")
+	public ArquivoModel findById(@PathVariable("id") Long id) {
+		Optional<ArquivoModel> obj = repository.findById(id);
+		if ( obj.isPresent() )
+			return obj.get();
+	    return null;
+	}
+
+	// @GetMapping("/remote")
+    // public ResponseEntity<Resource> getRemoteImage() throws IOException {
+    //     String remoteImageUrl = "https://exemplo.com/imagem.jpg";
+
+    //     try {
+    //         URL website = new URL(remoteImageUrl);
+    //         ReadableByteChannel rbc = Channels.newChannel(website.openStream());
+
+    //         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    //         outputStream.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+
+    //         ByteArrayResource byteArrayResource = new ByteArrayResource(outputStream.toByteArray());
+
+    //         return ResponseEntity.ok()
+    //                 .contentType(MediaType.IMAGE_JPEG) // Ou outro tipo apropriado
+    //                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"imagem.jpg\"")
+    //                 .body(byteArrayResource);
+    //     } catch (Exception e) {
+    //         // Trate exceções de forma adequada aqui.
+    //         throw new RuntimeException("Erro ao obter a imagem remota.", e);
+    //     }
+    // }
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.ifba.cooruja.backend.dto.LoginRequest;
 import br.ifba.cooruja.backend.model.UsuarioModel;
 import br.ifba.cooruja.backend.repository.UsuarioRepository;
 
@@ -115,12 +116,15 @@ public class UsuarioController {
 	}
 	
 	@PostMapping(value = "/login")
-    public ResponseEntity loginUsuario(@RequestBody UsuarioModel usuarioRequest){
-      try {
-          Optional<UsuarioModel> usuario = repository.findByEmail(usuarioRequest.getEmail());
+	// public class LoginRequest {
+	// 	private String username;
+	// 	private String password;
+    public ResponseEntity loginUsuario(@RequestBody LoginRequest loginRequest){
+        try {
+          Optional<UsuarioModel> usuario = repository.findByEmail(loginRequest.getUsername());
           
           if(usuario.isPresent()){
-              if(usuario.get().getSenha().equals( usuarioRequest.getSenha()) ) {
+              if(usuario.get().getSenha().equals( loginRequest.getPassword()) ) {
             	  // zerando o valor da senha, para que seja retornado ao cliente o objeto sem o valor da senha
             	  usuario.get().setSenha("");
             	  return ResponseEntity.ok(usuario);
@@ -135,7 +139,8 @@ public class UsuarioController {
           }
 
       }catch (Exception e){
-          throw e;
+		e.printStackTrace();
+		throw e;
       }
 
 	}
