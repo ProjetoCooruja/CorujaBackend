@@ -37,15 +37,41 @@ Create Table usuario_login (
 );
 
 create table arquivo (
-	id_arquivo int not null,
+	id int not null auto_increment,
 	id_usuario int not null,
 	tp_armazenamento int null DEFAULT 0, --0 - Local, 1 - AWS S3
-	nome_arquivo varchar(50) null,
-	path_arquivo varchar(200) null,
+	nome_arquivo text null,
+	path_arquivo text null,
 	tamanho int null,
-	data_cadastro TIMESTAMP DEFAULT now(),
+	data_cadastro TIMESTAMP not null DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (id_arquivo),
 );
 
+create table post (
+	id int not null auto_increment,
+	id_arquivo int not null,
+	id_usuario int not null,
+	titulo varchar(30) null,
+	comentario text null,
+	tags text null,
+	data_cadastro TIMESTAMP DEFAULT now(),
+	PRIMARY KEY (id)
+);
+
+create table comentario (
+	id int not null auto_increment,
+	id_post int not null,
+	id_usuario int not null,
+	comentario text null,
+	data_cadastro TIMESTAMP not null DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (id)
+);
+
 select * from perfil_acesso pa  u 
+
+
+select * 
+from post as p
+join arquivo as a on p.id_arquivo = a.id
+join usuario as u on p.id_usuario = u.id
 

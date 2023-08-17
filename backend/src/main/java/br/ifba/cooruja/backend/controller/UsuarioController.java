@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-// import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -116,9 +115,6 @@ public class UsuarioController {
 	}
 	
 	@PostMapping(value = "/login")
-	// public class LoginRequest {
-	// 	private String username;
-	// 	private String password;
     public ResponseEntity loginUsuario(@RequestBody LoginRequest loginRequest){
         try {
           Optional<UsuarioModel> usuario = repository.findByEmail(loginRequest.getUsername());

@@ -7,7 +7,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.Data;
 
 @Data
@@ -34,7 +37,8 @@ public class ArquivoModel {
 	@Column(name = "tamanho", nullable = false)
 	private Long tamanho;
 
-	@Column(name = "data_cadastro", nullable = true)
+	@Column(name = "data_cadastro", nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Timestamp data_cadastro;
 
 	public ArquivoModel(){}
@@ -59,6 +63,11 @@ public class ArquivoModel {
 		this.tamanho = tamanho;
 		this.data_cadastro = data_cadastro;
 	}
+
+	@PrePersist
+    protected void onCreate() {
+        data_cadastro = new Timestamp( System.currentTimeMillis() );
+    }
 
 	public Long getId() {
 		return id;
