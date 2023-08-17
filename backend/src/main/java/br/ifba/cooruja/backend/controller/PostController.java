@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,6 +29,7 @@ import br.ifba.cooruja.backend.repository.ArquivoRepository;
 import br.ifba.cooruja.backend.repository.PostRepository;
 import br.ifba.cooruja.backend.repository.UsuarioRepository;
 import br.ifba.cooruja.backend.repository.ComentarioRepository;
+
 
 @RestController
 @RequestMapping("/post")
@@ -90,8 +92,8 @@ public class PostController {
 
     @GetMapping("/listall")
 	public List<PostDTO> listall() {
-		// var model = postRepository.findByAllPosts();
-		var model = postRepository.findAll();
+		Sort sort = Sort.by(Sort.Direction.DESC, "id");
+		var model = postRepository.findAll(sort);
 		return converterParaPostDto( model );
 	}
 
