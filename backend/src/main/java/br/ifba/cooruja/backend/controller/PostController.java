@@ -1,5 +1,6 @@
 package br.ifba.cooruja.backend.controller;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.ifba.cooruja.backend.dto.ComentarioDTO;
+import br.ifba.cooruja.backend.dto.ComentarioRequest;
 import br.ifba.cooruja.backend.dto.PostDTO;
 import br.ifba.cooruja.backend.dto.PostRequest;
 import br.ifba.cooruja.backend.model.ArquivoModel;
@@ -51,36 +53,6 @@ public class PostController {
 		this.postRepository = postRepository;
 		this.arquivoRepository = arquivoRepository;
 	}
-
-	// private List<PostDTO> converterParaDto(List<Tuple> tuples) {
-	// 	String baseUrl = ServletUriComponentsBuilder
-	// 						.fromCurrentContextPath()
-	// 						.build()
-	// 						.toUriString();
-    	
-	// 	return tuples.stream()
-    //     	.map(tuple -> {
-    //         	Long id = tuple.get("id", Long.class);
-	// 			String nome = tuple.get("nome", String.class);
-    //         	String titulo = tuple.get("titulo", String.class);
-	// 			// String comentario = tuple.get("comentario", String.class);
-	// 			String tags = tuple.get("tags", String.class);
-	// 			Integer id_arquivo = tuple.get("id_arquivo", Integer.class);
-	// 			String path_arquivo = baseUrl + "/" 
-	// 				+ sharingPath 
-	// 				+ tuple.get("path_arquivo", String.class);
-	// 			Timestamp data_cadastro = tuple.get("data_cadastro", Timestamp.class);
-	// 			List<ComentarioDTO> listComentario = (List<ComentarioDTO>) tuple.get("comentarios", ArrayList.class);
-	// 			return new PostDTO( id , titulo, tags, id_arquivo, path_arquivo, nome, data_cadastro, listComentario);
-
-	// 			Long id, String titulo, 
-    //     		String tags, Long id_arquivo, String path_arquivo, 
-    //     		String nome, Timestamp data_cadastro, List<ComentarioDTO> comentarios
-
-
-	// 		})
-    //     	.collect(Collectors.toList());
-	// }
 
 	private List<PostDTO> converterParaPostDto(List<PostModel> listPost) {
 		String baseUrl = ServletUriComponentsBuilder
@@ -183,6 +155,32 @@ public class PostController {
 			e.printStackTrace();
 			return false;
 			// return ResponseEntity.ok("Erro ao efetuar o uploado da imagem!");
+		}
+	}
+
+	@PostMapping("/add_comentario")
+	public Boolean add_comentario(@ModelAttribute ComentarioRequest form) {
+		try {
+			Long id_usuario = form.getId_usuario();
+			Long id_post = form.getId_post();
+			String comentario = form.getComentario();
+	
+			PostModel pModel = new PostModel();
+			pModel.setId(id_post);
+	
+			UsuarioModel uModel = usuarioRepository.findById(id_usuario).get();
+			uModel.setId(id_usuario);
+	
+			ComentarioModel cm = new ComentarioModel();
+			cm.setComentario(comentario);
+			cm.setPostModel(pModel);
+			cm.setUsuario(uModel);
+			cm.setData_cadastro( new Timestamp(System.currentTimeMillis()) );
+			comentarioRepository.save(cm);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
 		}
 	}
 }
