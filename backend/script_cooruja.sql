@@ -41,7 +41,7 @@ Create Table usuario_login (
 create table arquivo (
 	id int not null auto_increment,
 	id_usuario int not null,
-	tp_armazenamento int null DEFAULT 0, --0 - Local, 1 - AWS S3
+	tipo_armazenamento int null DEFAULT 0, --0 - Local, 1 - AWS S3
 	nome_arquivo text null,
 	path_arquivo text null,
 	tamanho int null,
