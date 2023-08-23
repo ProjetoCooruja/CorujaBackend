@@ -2,8 +2,8 @@ create schema cooruja;
 
 use cooruja;
 
-drop table usuario_login;
 drop table usuario;
+drop table usuario_login;
 drop table perfil_acesso;
 
 
@@ -15,6 +15,8 @@ create Table perfil_acesso (
 		PRIMARY KEY (id)
 );
 
+insert into perfil_acesso values ( )
+
 Create Table usuario (
 		id int not null auto_increment,
 		nome varchar(50) not null,
@@ -23,15 +25,15 @@ Create Table usuario (
 		senha varchar(100) not null,
 		termos_aceite TINYINT (1)  not null, 
 		id_perfil int not null,
-		data_cadastro TIMESTAMP DEFAULT now(),
-		data_modificacao TIMESTAMP,
+		data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+		data_modificacao TIMESTAMP null,
 		PRIMARY KEY (id),
 		foreign key (id_perfil) references perfil_acesso(id)
 );
 
 Create Table usuario_login (
 		id_usuario int not null,
-		data_login  TIMESTAMP NOT NULL DEFAULT now(),
+		data_login  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 		PRIMARY KEY (id_usuario, data_login),
 		foreign key (id_usuario) references usuario(id)
 );
@@ -44,7 +46,7 @@ create table arquivo (
 	path_arquivo text null,
 	tamanho int null,
 	data_cadastro TIMESTAMP not null DEFAULT CURRENT_TIMESTAMP,
-	PRIMARY KEY (id_arquivo),
+	PRIMARY KEY (id)
 );
 
 create table post (
@@ -54,7 +56,7 @@ create table post (
 	titulo varchar(30) null,
 	comentario text null,
 	tags text null,
-	data_cadastro TIMESTAMP DEFAULT now(),
+	data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (id)
 );
 
@@ -66,12 +68,3 @@ create table comentario (
 	data_cadastro TIMESTAMP not null DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (id)
 );
-
-select * from perfil_acesso pa  u 
-
-
-select * 
-from post as p
-join arquivo as a on p.id_arquivo = a.id
-join usuario as u on p.id_usuario = u.id
-
