@@ -6,7 +6,6 @@ drop table usuario;
 drop table usuario_login;
 drop table perfil_acesso;
 
-
 create Table perfil_acesso (
 		id int not null auto_increment,
 		nome_perfil varchar(50) not null,
@@ -15,7 +14,8 @@ create Table perfil_acesso (
 		PRIMARY KEY (id)
 );
 
-insert into perfil_acesso values ( )
+insert into perfil_acesso values (1, "Comum", "Comum", 1)
+insert into perfil_acesso values (2, "Admin", "Administrador", 1)
 
 Create Table usuario (
 		id int not null auto_increment,
