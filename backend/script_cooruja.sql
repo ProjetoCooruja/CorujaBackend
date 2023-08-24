@@ -14,8 +14,8 @@ create Table perfil_acesso (
 		PRIMARY KEY (id)
 );
 
-insert into perfil_acesso values (1, "Comum", "Comum", 1)
-insert into perfil_acesso values (2, "Admin", "Administrador", 1)
+insert into perfil_acesso values (1, "Comum", "Comum", 1);
+insert into perfil_acesso values (2, "Admin", "Administrador", 1);
 
 Create Table usuario (
 		id int not null auto_increment,
@@ -41,7 +41,7 @@ Create Table usuario_login (
 create table arquivo (
 	id int not null auto_increment,
 	id_usuario int not null,
-	tipo_armazenamento int null DEFAULT 0, --0 - Local, 1 - AWS S3
+	tipo_armazenamento int null DEFAULT 0,
 	nome_arquivo text null,
 	path_arquivo text null,
 	tamanho int null,

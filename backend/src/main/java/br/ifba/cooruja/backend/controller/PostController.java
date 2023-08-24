@@ -113,7 +113,10 @@ public class PostController {
         MultipartFile file = form.getFile();
 		
 		UsuarioModel uModel = usuarioRepository.findById(id_usuario).get();
-		
+		if ( uModel == null ) {
+			return false;
+		}
+
 		String path = "";
 		try {
 			String baseUrl = uploadPath;
