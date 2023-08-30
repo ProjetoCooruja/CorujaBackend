@@ -6,8 +6,7 @@ target/
 
 # Evitar subir imagens
 !**/backend/src/main/resources/upload/
-backend/src/main/resources/upload/
-backend/src/main/resources/upload
+!**/src/main/resources/upload/
 
 # OS-specific files
 .DS_Store

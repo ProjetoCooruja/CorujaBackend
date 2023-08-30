@@ -4,9 +4,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-// import java.net.InetAddress;
-// import java.net.UnknownHostException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
@@ -139,7 +136,10 @@ public class PostController {
         MultipartFile file = form.getFile();
 		
 		UsuarioModel uModel = usuarioRepository.findById(id_usuario).get();
-		
+		if ( uModel == null ) {
+			return false;
+		}
+
 		String path = "";
 		try {
 			String baseUrl = getBaseUrl();

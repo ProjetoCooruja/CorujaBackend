@@ -7,7 +7,8 @@ CREATE TABLE perfil_acesso (
     status BOOLEAN NOT NULL
 );
 
-insert into perfil_acesso values ( 2, 'comum', 'Usuario comum', true);
+insert into perfil_acesso values ( 1, 'Comum', 'Usuario comum', true);
+insert into perfil_acesso values ( 2, 'Admin', 'Administrador', true);
 
 CREATE TABLE usuario (
     id SERIAL PRIMARY KEY,
