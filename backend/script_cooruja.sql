@@ -63,8 +63,4 @@ create table comentario (
 	comentario text null,
 	data_cadastro TIMESTAMP not null DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (id)
-<<<<<<< HEAD
 );
-=======
-);
->>>>>>> refs/remotes/origin/main
