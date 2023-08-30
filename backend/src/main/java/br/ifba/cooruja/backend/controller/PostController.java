@@ -4,6 +4,9 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+// import java.net.InetAddress;
+// import java.net.UnknownHostException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
@@ -36,12 +39,24 @@ import br.ifba.cooruja.backend.repository.ComentarioRepository;
 @RequestMapping("/post")
 public class PostController {
 
-	@Value("${upload.path}")
-    private String uploadPath;
+	@Value("${upload.path.dev}")
+    private String uploadPathDev;
+
+	@Value("${upload.path.prod}")
+    private String uploadPathProd;
 
 	@Value("${sharing.path}")
     private String sharingPath;
 
+	@Value("${server.ip.prod}")
+    private String serverIp;
+
+	@Value("${spring.profiles.active}")
+    private String profilesActive;
+
+	@Value("${server.port}")
+    private String serverPort;
+	
 	@Autowired
 	private PostRepository postRepository;
 	@Autowired
@@ -51,6 +66,20 @@ public class PostController {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
+	private String getBaseUrl(){
+		String baseUrl = "";
+		if ( profilesActive.toUpperCase().equals("DEV") ) {
+			baseUrl = ServletUriComponentsBuilder
+				.fromCurrentContextPath()
+				.build()
+				.toUriString();
+		}
+		else if ( profilesActive.toUpperCase().equals("PROD") ) {
+			baseUrl = "http://" + serverIp + ":" + serverPort;
+		}
+		return baseUrl;
+	}
+
 	public PostController(PostRepository postRepository, ArquivoRepository arquivoRepository) {
 		super();
 		this.postRepository = postRepository;
@@ -58,13 +87,9 @@ public class PostController {
 	}
 
 	private List<PostDTO> converterParaPostDto(List<PostModel> listPost) {
-		String baseUrl = ServletUriComponentsBuilder
-							.fromCurrentContextPath()
-							.build()
-							.toUriString();
-		
+		String baseUrl = getBaseUrl();
+		System.out.println("baseUrl: " + baseUrl);
 		List<PostDTO> list = new ArrayList<PostDTO>();
-
 		for (PostModel pm : listPost) {
 			PostDTO pdto = new PostDTO();
 			pdto.setId(pm.getId());
@@ -117,7 +142,7 @@ public class PostController {
 		
 		String path = "";
 		try {
-			String baseUrl = uploadPath;
+			String baseUrl = getBaseUrl();
 			Arquivo arquivo = new Arquivo();
 			path = arquivo.salvar( baseUrl, "", file);
 		} 
@@ -135,7 +160,7 @@ public class PostController {
 			am.setPath_arquivo( path );
 			am.setTamanho(file.getSize());
 
-			// Long id_arquivo = arquivoRepository.save(am).getId();
+			// Long git add  = arquivoRepository.save(am).getId();
 
 			PostModel pm = new PostModel();
 			pm.setArquivo(am);

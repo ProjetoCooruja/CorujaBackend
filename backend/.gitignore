@@ -4,6 +4,11 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+# Evitar subir imagens
+!**/backend/src/main/resources/upload/
+backend/src/main/resources/upload/
+backend/src/main/resources/upload
+
 # OS-specific files
 .DS_Store
 **/.DS_Store
