@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -161,7 +162,10 @@ public class PostController {
 	}
 
 	@PostMapping("/add_comentario")
-	public Boolean add_comentario(@ModelAttribute ComentarioRequest form) {
+	@Transactional
+	public Boolean add_comentario(@RequestBody ComentarioRequest form) {
+		System.out.println("add_comentario: " + form);
+
 		try {
 			Long id_usuario = form.getId_usuario();
 			Long id_post = form.getId_post();

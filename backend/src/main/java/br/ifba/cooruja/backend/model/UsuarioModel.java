@@ -18,7 +18,7 @@ public class UsuarioModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private long id;
+	private Long id;
 
 	@Column(name = "nome", nullable = false)
 	private String nome;
@@ -36,7 +36,7 @@ public class UsuarioModel {
 	private Boolean termos_aceite;
 
 	@Column(name = "id_perfil", nullable = false)
-	private String id_perfil;
+	private Long id_perfil;
 
 	@Column(name = "data_cadastro", nullable = true, columnDefinition = "TIMESTAMP DEFAULT now()")
 	private Date data_cadastro;
@@ -48,8 +48,8 @@ public class UsuarioModel {
 		super();
 	}
 
-	public UsuarioModel(long id, String nome, String sobrenome, String email, String senha, Boolean termos_aceite,
-			String id_perfil, Date data_cadastro, Date data_modificacao) {
+	public UsuarioModel(Long id, String nome, String sobrenome, String email, String senha, Boolean termos_aceite,
+			Long id_perfil, Date data_cadastro, Date data_modificacao) {
 		this.id = id;
 		this.nome = nome;
 		this.sobrenome = sobrenome;
@@ -61,11 +61,11 @@ public class UsuarioModel {
 		this.data_modificacao = data_modificacao;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -109,11 +109,11 @@ public class UsuarioModel {
 		this.termos_aceite = termos_aceite;
 	}
 
-	public String getId_perfil() {
+	public Long getId_perfil() {
 		return id_perfil;
 	}
 
-	public void setId_perfil(String id_perfil) {
+	public void setId_perfil(Long id_perfil) {
 		this.id_perfil = id_perfil;
 	}
 

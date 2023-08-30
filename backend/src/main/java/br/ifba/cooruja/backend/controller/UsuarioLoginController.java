@@ -31,7 +31,6 @@ public class UsuarioLoginController {
 		return "Testando Usuario Login...";
 	}
 	
-	
 	@PostMapping("/")
 	@ResponseStatus( HttpStatus.CREATED )
 	public boolean insert(@RequestBody UsuarioLoginModel model){
@@ -48,7 +47,6 @@ public class UsuarioLoginController {
 		}
 	}
 	
-	
 	// Método que retornar o usuario associado ao ID passado como parametro
 	@GetMapping("/{id}")
     public UsuarioLoginModel findByUsuarioId(@PathVariable("id") Long id) {
@@ -57,5 +55,4 @@ public class UsuarioLoginController {
 			return obj.get();
         return null;
     }
-	
 }

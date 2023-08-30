@@ -125,5 +125,4 @@ public class ArquivoModel {
 		this.nome_arquivo = nome_arquivo;
 	}
 
-	
 }
