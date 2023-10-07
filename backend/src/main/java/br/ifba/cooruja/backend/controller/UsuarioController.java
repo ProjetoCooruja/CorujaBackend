@@ -116,32 +116,6 @@ public class UsuarioController {
         }
 	}
 	
-// 	@PostMapping(value = "/login")
-//     public ResponseEntity loginUsuario(@RequestBody LoginRequest loginRequest){
-//         try {
-//           Optional<UsuarioModel> usuario = repository.findByEmail(loginRequest.getUsername());
-          
-//           if(usuario.isPresent()){
-//               if(usuario.get().getSenha().equals( loginRequest.getPassword()) ) {
-//             	  // zerando o valor da senha, para que seja retornado ao cliente o objeto sem o valor da senha
-//             	  usuario.get().setSenha("");
-//             	  return ResponseEntity.ok(usuario);
-//               } else {
-//             	  return ResponseEntity.badRequest()
-//                           .body("Usuario ou Senha Incorreta!");
-//               }
-
-//           }else{
-// //              return ResponseEntity.notFound().headers(headers).build();
-//         	  return ResponseEntity.notFound().build();
-//           }
-
-//       }catch (Exception e){
-// 		e.printStackTrace();
-// 		throw e;
-//       }
-
-// 	}
 
 	@PostMapping(value = "/login")
 	public ResponseEntity loginUsuario(@RequestBody LoginRequest loginRequest) {
