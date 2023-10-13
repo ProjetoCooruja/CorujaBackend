@@ -44,12 +44,17 @@ public class UsuarioModel {
 	@Column(name = "data_modificacao", nullable = true)
 	private Date data_modificacao;
 
+	@Column(name = "imagem_usuario", nullable = true)
+	private String imagem;
+
 	public UsuarioModel() {
 		super();
 	}
 
+	
+
 	public UsuarioModel(long id, String nome, String sobrenome, String email, String senha, Boolean termos_aceite,
-			String id_perfil, Date data_cadastro, Date data_modificacao) {
+			String id_perfil, Date data_cadastro, Date data_modificacao, String imagem) {
 		this.id = id;
 		this.nome = nome;
 		this.sobrenome = sobrenome;
@@ -59,7 +64,10 @@ public class UsuarioModel {
 		this.id_perfil = id_perfil;
 		this.data_cadastro = data_cadastro;
 		this.data_modificacao = data_modificacao;
+		this.imagem = imagem;
 	}
+
+
 
 	public long getId() {
 		return id;
