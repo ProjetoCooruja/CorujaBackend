@@ -18,7 +18,7 @@ public class UsuarioModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private Long id;
+	private long id;
 
 	@Column(name = "nome", nullable = false)
 	private String nome;
@@ -36,7 +36,7 @@ public class UsuarioModel {
 	private Boolean termos_aceite;
 
 	@Column(name = "id_perfil", nullable = false)
-	private Long id_perfil;
+	private String id_perfil;
 
 	@Column(name = "data_cadastro", nullable = true, columnDefinition = "TIMESTAMP DEFAULT now()")
 	private Date data_cadastro;
@@ -44,12 +44,17 @@ public class UsuarioModel {
 	@Column(name = "data_modificacao", nullable = true)
 	private Date data_modificacao;
 
+	@Column(name = "imagem_usuario", nullable = true)
+	private String imagem_usuario;
+
 	public UsuarioModel() {
 		super();
 	}
 
-	public UsuarioModel(Long id, String nome, String sobrenome, String email, String senha, Boolean termos_aceite,
-			Long id_perfil, Date data_cadastro, Date data_modificacao) {
+	
+
+	public UsuarioModel(long id, String nome, String sobrenome, String email, String senha, Boolean termos_aceite,
+			String id_perfil, Date data_cadastro, Date data_modificacao, String imagem_usuario) {
 		this.id = id;
 		this.nome = nome;
 		this.sobrenome = sobrenome;
@@ -59,13 +64,16 @@ public class UsuarioModel {
 		this.id_perfil = id_perfil;
 		this.data_cadastro = data_cadastro;
 		this.data_modificacao = data_modificacao;
+		this.imagem_usuario = imagem_usuario;
 	}
 
-	public Long getId() {
+
+
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -109,11 +117,11 @@ public class UsuarioModel {
 		this.termos_aceite = termos_aceite;
 	}
 
-	public Long getId_perfil() {
+	public String getId_perfil() {
 		return id_perfil;
 	}
 
-	public void setId_perfil(Long id_perfil) {
+	public void setId_perfil(String id_perfil) {
 		this.id_perfil = id_perfil;
 	}
 
