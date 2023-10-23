@@ -13,20 +13,5 @@
     "name": "sharing.path",
     "type": "java.lang.String",
     "description": "A description for 'sharing.path'"
-  },
-  {
-    "name": "upload.path.dev",
-    "type": "java.lang.String",
-    "description": "A description for 'upload.path.dev'"
-  },
-  {
-    "name": "upload.path.prod",
-    "type": "java.lang.String",
-    "description": "A description for 'upload.path.prod'"
-  },
-  {
-    "name": "server.ip.prod",
-    "type": "java.lang.String",
-    "description": "A description for 'server.ip.prod'"
   }
 ]}
