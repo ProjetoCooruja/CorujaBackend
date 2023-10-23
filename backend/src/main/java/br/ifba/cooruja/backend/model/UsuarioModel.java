@@ -2,6 +2,8 @@ package br.ifba.cooruja.backend.model;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,6 +32,7 @@ public class UsuarioModel {
 	private String email;
 
 	@Column(name = "senha", nullable = false)
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // não retorna a sennha do usuario no JSON
 	private String senha;
 
 	@Column(name = "termos_aceite", nullable = false)
