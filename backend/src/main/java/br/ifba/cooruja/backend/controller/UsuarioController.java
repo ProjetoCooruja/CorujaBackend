@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,10 +25,12 @@ import br.ifba.cooruja.backend.repository.UsuarioRepository;
 public class UsuarioController {
 	
 	private UsuarioRepository repository;
+	private final PasswordEncoder encoder;
 
 
-	public UsuarioController(UsuarioRepository repository) {
+	public UsuarioController(UsuarioRepository repository, PasswordEncoder encoder) {
 		super();
+		this.encoder = encoder;
 		this.repository = repository;
 	}
 	
@@ -58,10 +61,8 @@ public class UsuarioController {
 	public boolean insert(@RequestBody UsuarioModel model){
 		System.out.println("server - insert: " + model);
 		try {
-			// Criptografando a senha do usuario
-			// BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-			// String hashedPassword = passwordEncoder.encode(model.getSenha());
-			// model.setSenha(hashedPassword);
+			//salva a senha criptografada no banco
+			model.setSenha(encoder.encode(model.getSenha()));
 			repository.save(model);
 			System.out.println("server - insert: TRUE");
 			return true;
@@ -127,18 +128,20 @@ public class UsuarioController {
           Optional<UsuarioModel> usuario = repository.findByEmail(loginRequest.getUsername());
           
           if(usuario.isPresent()){
-              if(usuario.get().getSenha().equals( loginRequest.getPassword()) ) {
-            	  // zerando o valor da senha, para que seja retornado ao cliente o objeto sem o valor da senha
-            	  usuario.get().setSenha("");
-            	  return ResponseEntity.ok(usuario);
-              } else {
-            	  return ResponseEntity.badRequest()
-                          .body("Usuario ou Senha Incorreta!");
-              }
+			String senhaCriptografada = usuario.get().getSenha();
+			//variavel que compara a senha com a senha criptografada 
+            boolean senhaCorreta = encoder.matches(loginRequest.getPassword(), senhaCriptografada);
 
+			if(senhaCorreta) {
+				usuario.get().setSenha("");
+				return ResponseEntity.ok(usuario);
+			} else {
+				return ResponseEntity.badRequest()
+						.body("Usuario ou Senha Incorreta!");
+			}
           }else{
-//              return ResponseEntity.notFound().headers(headers).build();
-        	  return ResponseEntity.notFound().build();
+			//usario nao encontrado
+        	return ResponseEntity.notFound().build();
           }
 
       }catch (Exception e){
