@@ -140,7 +140,7 @@ public class UsuarioController {
 						.body("Usuario ou Senha Incorreta!");
 			}
           }else{
-			//usario nao encontrado
+			    //usario nao encontrado
         	return ResponseEntity.notFound().build();
           }
 

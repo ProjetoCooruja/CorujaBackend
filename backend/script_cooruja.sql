@@ -2,10 +2,6 @@ create schema cooruja;
 
 use cooruja;
 
-drop table usuario;
-drop table usuario_login;
-drop table perfil_acesso;
-
 create Table perfil_acesso (
 		id int not null auto_increment,
 		nome_perfil varchar(50) not null,

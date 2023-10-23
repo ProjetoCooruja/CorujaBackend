@@ -1,0 +1,36 @@
+# Maven
+## Limpar o Projeto:
+mvn clean
+
+## Empacotar o Projeto:
+mvn package
+
+## (Opcional) Pular Testes:
+mvn package -DskipTests
+
+# Executar o arquivo 
+java -jar target/nome-da-sua-aplicacao.jar
+
+# Copiar arquivo para o servidor remoto 
+scp -i /caminho/para/sua_chave.pem /caminho/local/do/arquivo usuario@servidor:/caminho/destino/
+## Exemplo: scp -i /Users/othon/Documents/keys/myKey.cer /Users/othon/Documents/GitHub/CorujaBackend/backend/target/backend-0.0.1-SNAPSHOT.jar azureuser@20.197.189.48:/home/azureuser/cooruja/
+
+ssh -i  /Documents/keys/LightsailDefaultKey-us-east-1.pem ubuntu@100.24.9.196
+
+# Configuracoes do Servidor Remoto
+## Usuário: azureuser
+## IP: 20.197.189.48
+## Senha do MySQL: Coruj@I3ba!
+
+#Configurar o Firewall:
+## Verifique o status atual do UFW:
+sudo ufw status
+
+## Para permitir conexões na porta 8082:
+sudo ufw allow 8082/tcp
+
+## Ativar:
+sudo ufw enable
+
+
+
